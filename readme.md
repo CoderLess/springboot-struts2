@@ -5,3 +5,4 @@
 3. velocity
 4. struts2
 5. mybatis
+## 基础框架构建完成
