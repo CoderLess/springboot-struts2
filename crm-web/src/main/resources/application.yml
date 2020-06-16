@@ -1,0 +1,5 @@
+dubbo:
+  application:
+    name: crm-web
+  registry:
+    address: zookeeper://192.167.12.238:2182?backup=192.167.12.238:2183,192.167.12.238:2184

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ibn.user.dao.UserBaseDao">
+
+
+    <sql id="baseColumn">
+		`id`, `username`, `password`, `phone`, `create_time`, `last_access`, `version`
+	</sql>
+
+    <sql id="queryColumn">
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="username != null and username !=''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password !=''">
+                and password = #{password}
+            </if>
+            <if test="phone != null and phone !=''">
+                and phone = #{phone}
+            </if>
+            <if test="createTime != null and createTime !=''">
+                and create_time = #{createTime}
+            </if>
+            <if test="lastAccess != null and lastAccess !=''">
+                and last_access = #{lastAccess}
+            </if>
+            <if test="version != null and version !=''">
+                and version = #{version}
+            </if>
+        </where>
+
+    </sql>
+
+    <select id="queryUserBase" resultType="com.ibn.user.entity.UserBaseDO">
+        select
+        <include refid="baseColumn"/>
+        from user_base
+        <include refid="queryColumn"/>
+    </select>
+
+    <insert id="createUserBase" parameterType="com.ibn.user.entity.UserBaseDO" useGeneratedKeys="true" keyProperty="id">
+		insert into user_base
+		(
+			`username`,
+			`password`,
+			`phone`,
+			`create_time`,
+			`last_access`,
+			`version`
+		)
+		values
+		(
+			#{username},
+			#{password},
+			#{phone},
+			#{createTime},
+			#{lastAccess}, 
+			#{version}
+		)
+	</insert>
+
+
+    <update id="modifyUserBase" parameterType="com.ibn.user.entity.UserBaseDO">
+        update user_base
+        <set>
+            <if test="username != null">`username` = #{username},</if>
+            <if test="password != null">`password` = #{password},</if>
+            <if test="phone != null">`phone` = #{phone},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="lastAccess != null">`last_access` = #{lastAccess},</if>
+            <if test="version != null">`version` = #{version}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUserBase">
+		delete from user_base where id = #{value}
+	</delete>
+
+</mapper>
+
+        <!--建表语句-->
+        <!--    CREATE TABLE `user_base` (-->
+        <!--    `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',-->
+        <!--    `username` varchar(200) NOT NULL DEFAULT '' COMMENT '用户登录名',-->
+        <!--    `password` varchar(50) NOT NULL DEFAULT '' COMMENT '登录密码',-->
+        <!--    `phone` varchar(100) NOT NULL DEFAULT '' COMMENT '联系电话',-->
+        <!--    `last_access` bigint(20) NOT NULL DEFAULT '0' COMMENT '最后更新时间',-->
+        <!--    `version` bigint(20) NOT NULL DEFAULT '0' COMMENT '版本号',-->
+        <!--    `create_time` bigint(20) NOT NULL DEFAULT '0' COMMENT '所属会员id',-->
+        <!--    PRIMARY KEY (`id`) USING BTREE,-->
+        <!--    UNIQUE KEY `id` (`id`) USING BTREE,-->
+        <!--    UNIQUE KEY `IDX_user_base_username` (`username`)-->
+        <!--    ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户基本信息表';-->

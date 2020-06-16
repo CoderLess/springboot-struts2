@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.167.12.238:3308/ibn_crm
+    username: root
+    password: 123456
+#    mybatis相关配置:https://mybatis.org/mybatis-3/zh/configuration.html#properties
+mybatis:
+#  从哪个包下面找dao
+  type-aliases-package: com.ibn.user.domain
+#  mapper文件的位置
+  mapper-locations: classpath:mybatis/*Dao.xml
+#  输出一下查询语句
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    是否开启驼峰命名自动映射，即从经典数据库列名 A_COLUMN 映射到经典 Java 属性名 aColumn。
+    map-underscore-to-camel-case: true
+dubbo:
+  application:
+    name: user_provider
+    owner: jeffrey
+    organization: it
+    architecture: mysteel-oilchem-crm-member-provider-local
+    environment: product
+  registry:
+    address: zookeeper://192.167.12.238:2182?backup=192.167.12.238:2183,192.167.12.238:2184
+  container: spring
+  monitor:
+    protocol: registry
+  protocol:
+    name: dubbo
+    port: 10185
+  service:
+    loadbalance: roundrobin
+  provider:
+    timeout: 1200000
+  consumer:
+    timeout: 1200000
+    check: false
+    retries: 1

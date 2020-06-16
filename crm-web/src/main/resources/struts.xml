@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <!-- 表示struts的工厂类交给Spring实例 -->
+    <constant name="struts.objectFactory" value="spring"></constant>
+    <!--
+        SpringBoot集成struts2这个必须要配置
+        表示不把SpringBoot内置Tomcat的类加载器排除在外
+         默认是true 将类加载器排除了所以就算上面配置
+        如果这个没有配置就算运行不报错但是Action还是访问不了
+    -->
+<!--    <constant name="struts.convention.exclude.parentClassLoader" value="false"></constant>-->
+    <!-- 该属性设置Struts 2是否支持动态方法调用，该属性的默认值是true。如果需要关闭动态方法调用，则可设置该属性为false -->
+<!--    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>-->
+<!--    &lt;!&ndash; 该属性设置Struts 2应用是否使用开发模式。如果设置该属性为true，则可以在应用出错时显示更多、更友好的出错提示。 &ndash;&gt;-->
+<!--    &lt;!&ndash; 通常，应用在开发阶段，将该属性设置为true，当进入产品发布阶段后，则该属性设置为false &ndash;&gt;-->
+<!--    <constant name="struts.devMode" value="false"/>-->
+<!--    &lt;!&ndash; 该属性设置是否每次HTTP请求到达时，系统都重新加载资源文件 , &ndash;&gt;-->
+<!--    &lt;!&ndash; 该属性默认值是false。在开发阶段将该属性设置为true会更有利于开发，但在产品发布阶段应将该属性设置为false。 &ndash;&gt;-->
+<!--    <constant name="struts.i18n.reload" value="false"/>-->
+<!--    &lt;!&ndash; 该属性设置当struts.xml文件改变后，系统是否自动重新加载该文件。该属性的默认值是false &ndash;&gt;-->
+<!--    <constant name="struts.configuration.xml.reload" value="false"/>-->
+<!--    &lt;!&ndash; 该属性指定Struts 2应用所需要的国际化资源文件，如果有多份国际化资源文件，则多个资源文件的文件名以英文逗号（,）隔开 &ndash;&gt;-->
+<!--    <constant name="struts.custom.i18n.resources" value="globalMessages,filePath"/>-->
+<!--    &lt;!&ndash; 该属性指定Struts 2生成URL时是否包含请求参数。 &ndash;&gt;-->
+<!--    &lt;!&ndash; 该属性接受none、get和all三个属性值，分别对应于不包含、仅包含GET类型请求参数和包含全部请求参数。 &ndash;&gt;-->
+<!--    &lt;!&ndash; <constant name="struts.url.includeParams" value="none" /> &ndash;&gt;-->
+<!--    &lt;!&ndash; 该属性指定视图标签默认的视图主题，该属性的默认值是xhtml &ndash;&gt;-->
+<!--    <constant name="struts.ui.theme" value="simple"/>-->
+<!--    &lt;!&ndash; 设置velocity配置文件 &ndash;&gt;-->
+<!--    <constant name="struts.velocity.configfile" value="velocity.properties"/>-->
+<!--    &lt;!&ndash; 该属性设置文件上传的大小，现设置为10MB. &ndash;&gt;-->
+<!--    <constant name="struts.multipart.maxSize" value="10485760"/>-->
+
+
+    <package name="user" extends="struts-default">
+
+<!--        <result-types>-->
+<!--            <result-type name="velocity" class="com.tairan.taihang.struts.velocity.VelocityLayoutResult"/>-->
+<!--        </result-types>-->
+
+<!--        <interceptors>-->
+<!--            &lt;!&ndash; 自定义登录拦截器 &ndash;&gt;-->
+<!--            <interceptor name="loginInterceptor" class="loginInterceptor"/>-->
+<!--            &lt;!&ndash; 异常拦截器 &ndash;&gt;-->
+<!--            &lt;!&ndash; <interceptor name="exception" class="com.opensymphony.xwork.interceptor.ExceptionmappingInterceptor" /> &ndash;&gt;-->
+<!--            &lt;!&ndash; 拦截器栈 &ndash;&gt;-->
+<!--            <interceptor-stack name="myDefault">-->
+<!--                <interceptor-ref name="defaultStack"/>-->
+<!--                <interceptor-ref name="loginInterceptor"/>-->
+<!--                &lt;!&ndash; <interceptor-ref name="exception"></interceptor-ref> &ndash;&gt;-->
+<!--            </interceptor-stack>-->
+<!--        </interceptors>-->
+
+<!--        <global-results>-->
+<!--            &lt;!&ndash; 拦截器跳转到登录页面 &ndash;&gt;-->
+<!--            <result name="toLogin" type="velocity">WEB-INF/vm/screen/storage/user/login.vm</result>-->
+<!--            &lt;!&ndash; 统一的错误页面 &ndash;&gt;-->
+<!--            <result name="error" type="velocity">WEB-INF/vm/screen/storage/error.vm</result>-->
+<!--            &lt;!&ndash; 异常页面 &ndash;&gt;-->
+<!--            <result name="root" type="velocity">WEB-INF/vm/screen/storage/error.vm</result>-->
+<!--            <result name="sql" type="velocity">WEB-INF/vm/screen/storage/error.vm</result>-->
+<!--        </global-results>-->
+
+<!--        &lt;!&ndash; 全局异常处理 &ndash;&gt;-->
+<!--        <global-exception-mappings>-->
+<!--            &lt;!&ndash; Action抛出Exception时，转入名为root的结果 &ndash;&gt;-->
+<!--            <exception-mapping result="root" exception="java.lang.Exception"/>-->
+<!--            &lt;!&ndash; Action抛出SqlException时，转入名为sql的结果 &ndash;&gt;-->
+<!--            <exception-mapping result="sql" exception="java.sql.Exception"/>-->
+<!--        </global-exception-mappings>-->
+
+
+        <action name="index" class="userBaseAction" method="index">
+            <result name="success" type="velocity">/WEB-INF/vm/index.vm</result>
+        </action>
+
+        <action name="show" class="userBaseAction" method="showUser">
+            <result name="success" type="velocity">/WEB-INF/vm/user/showUser.vm</result>
+        </action>
+
+<!--        <action name="login" class="userAction" method="login">-->
+<!--            <result name="success" type="redirectAction">userInfo</result>-->
+<!--            <result name="input" type="velocity">WEB-INF/vm/screen/storage/user/login.vm</result>-->
+<!--        </action>-->
+
+<!--        <action name="toRegister" class="userAction" method="toRegister">-->
+<!--            <result name="success" type="velocity">WEB-INF/vm/screen/storage/user/register.vm</result>-->
+<!--        </action>-->
+
+<!--        <action name="register" class="userAction" method="register">-->
+<!--            <result name="success" type="velocity">WEB-INF/vm/screen/storage/user/registerSuccess.vm</result>-->
+<!--            <result name="input" type="velocity">WEB-INF/vm/screen/storage/user/register.vm</result>-->
+<!--        </action>-->
+
+<!--        <action name="json" class="userAction" method="toJson">-->
+<!--            <result name="success" type="velocity">WEB-INF/vm/screen/storage/jsonTest.vm</result>-->
+<!--        </action>-->
+
+<!--        <action name="exit" class="userAction" method="exit">-->
+<!--            <result name="success" type="velocity">WEB-INF/vm/screen/storage/user/login.vm</result>-->
+<!--        </action>-->
+
+<!--    </package>-->
+
+<!--    <package name="userInfo" extends="user">-->
+
+<!--        <action name="userInfo" class="userInfoAction" method="userInfo">-->
+<!--            <interceptor-ref name="myDefault"/>-->
+<!--            <result name="success" type="velocity">WEB-INF/vm/screen/storage/userInfo/userInfo.vm</result>-->
+<!--        </action>-->
+
+<!--        <action name="toAddUserInfo" class="userInfoAction" method="toAddUserInfo">-->
+<!--            <interceptor-ref name="myDefault"/>-->
+<!--            <result name="success" type="velocity">WEB-INF/vm/screen/storage/userInfo/addUserInfo.vm</result>-->
+<!--        </action>-->
+
+<!--        <action name="addUserInfo" class="userInfoAction" method="addUserInfo">-->
+<!--            <result name="success" type="redirectAction">userInfo</result>-->
+<!--        </action>-->
+
+<!--        <action name="toModifyUserInfo" class="userInfoAction" method="toModifyUserInfo">-->
+<!--            <interceptor-ref name="myDefault"/>-->
+<!--            <result name="success" type="velocity">WEB-INF/vm/screen/storage/userInfo/modifyUserInfo.vm</result>-->
+<!--        </action>-->
+
+<!--        <action name="modifyUserInfo" class="userInfoAction" method="modifyUserInfo">-->
+<!--            <result name="success" type="redirectAction">userInfo</result>-->
+<!--        </action>-->
+
+<!--        <action name="toDeleteUserInfo" class="userInfoAction" method="deleteUserInfo">-->
+<!--            <interceptor-ref name="myDefault"/>-->
+<!--            <result name="success" type="redirectAction">userInfo</result>-->
+<!--        </action>-->
+
+<!--    </package>-->
+
+
+<!--    &lt;!&ndash; JSON &ndash;&gt;-->
+<!--    <package name="jsonTest" extends="json-default">-->
+<!--        <action name="testList" class="jsonAction" method="getList">-->
+<!--            <result type="json">-->
+<!--                <param name="root">responseJsonList</param>-->
+<!--            </result>-->
+<!--        </action>-->
+<!--        <action name="testMap" class="jsonAction" method="getMap">-->
+<!--            <result type="json">-->
+<!--                <param name="root">responseJsonMap</param>-->
+<!--            </result>-->
+<!--        </action>-->
+<!--        <action name="testObject" class="jsonAction" method="getObject">-->
+<!--            <result type="json">-->
+<!--                <param name="root">responseJsonObject</param>-->
+<!--            </result>-->
+<!--        </action>-->
+<!--        <action name="checkName" class="userAction" method="checkName">-->
+<!--            <result type="json">-->
+<!--                <param name="root">errorMsg</param>-->
+<!--            </result>-->
+<!--        </action>-->
+<!--        <action name="checkRegisterName" class="userAction" method="checkRegisterName">-->
+<!--            <result type="json">-->
+<!--                <param name="root">errorMsg</param>-->
+<!--            </result>-->
+<!--        </action>-->
+    </package>
+</struts>
